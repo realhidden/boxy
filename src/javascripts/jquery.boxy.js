@@ -3,6 +3,7 @@
  *
  * (c) 2008 Jason Frame
  * Licensed under the MIT License (LICENSE)
+ * Modified by Michael Tierney <mike@panpainter.com>
  */
  
 /*
@@ -131,6 +132,7 @@ jQuery.extend(Boxy, {
         afterShow:              Boxy.EF,        // callback fired after dialog becomes visible. executes in context of Boxy instance.
         afterHide:              Boxy.EF,        // callback fired after dialog is hidden. executed in context of Boxy instance.
         beforeUnload:           Boxy.EF,        // callback fired after dialog is unloaded. executed in context of Boxy instance.
+        showFade:               false, 
         hideFade:               false,
         hideShrink:             'vertical'
     },
@@ -491,10 +493,17 @@ Boxy.prototype = {
             }
         }
 		this.getInner().stop().css({width: '', height: ''});
-        this.boxy.stop().css({opacity: 1}).show();
+        
+        if (this.options.showFade) {
+          this.boxy.stop().css({opacity: 1}).fadeIn(700);
+        }
+        else {
+          this.boxy.stop().css({opacity: 1}).show();
+        }
         this.visible = true;
         this.boxy.find('.close:first').focus();
         this._fire('afterShow');
+        
         return this;
     },
     
@@ -538,8 +547,8 @@ Boxy.prototype = {
 		}
 		
 		if (this.options.hideFade) {
-			tween |= 2;
-			target.boxy.opacity = 0;
+      tween |= 2;
+      target.boxy.opacity = 0;
 		}
 		
 		if (tween) {
