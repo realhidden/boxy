@@ -176,7 +176,7 @@ jQuery.extend(Boxy, {
     loadImage: function(url, options) {
         var img = new Image();
         img.onload = function() {
-            new Boxy($('<div class="boxy-image-wrapper"/>').append(this), options);
+            new Boxy(jQuery('<div class="boxy-image-wrapper"/>').append(this), options);
         };
         img.src = url;
     },
