@@ -380,14 +380,26 @@ Boxy.prototype = {
     
     // Move this dialog (x-coord only)
     moveToX: function(x) {
-        if (typeof x == 'number') this.boxy.css({left: x});
+        if (typeof x == 'number') {
+          if (x >= 0) this.boxy.css({left: x});
+          else {
+            this.boxy.css({left: Boxy.DEFAULT_X});
+            this.boxy.removeClass('fixed');
+          }
+        }
         else this.centerX();
         return this;
     },
     
     // Move this dialog (y-coord only)
     moveToY: function(y) {
-        if (typeof y == 'number') this.boxy.css({top: y});
+        if (typeof y == 'number') {
+          if (y >= 0) this.boxy.css({top: y});
+          else {
+            this.boxy.css({top: Boxy.DEFAULT_Y});
+            this.boxy.removeClass('fixed');
+          }
+        }
         else this.centerY();
         return this;
     },
