@@ -479,11 +479,13 @@ Boxy.prototype = {
                 })).appendTo(document.body);
             this.toTop();
             if (this.options.closeable) {
+                this.keypressIsBound = true;
                 jQuery(document).bind('keypress.boxy', function(evt) {
                     var key = evt.which || evt.keyCode;
                     if (key == 27) {
+                        jQuery(document).unbind(evt);
+                        self.keypressIsBound = false;
                         self.hide();
-                        jQuery(document).unbind('keypress.boxy');
                     }
                 });
             }
@@ -504,7 +506,9 @@ Boxy.prototype = {
 		var self = this;
         
 		if (this.options.modal) {
-            jQuery(document).unbind('keypress.boxy');
+            if (this.keypressIsBound) {
+                jQuery(document).unbind('keypress.boxy');
+            }
             this.modalBlackout.animate({opacity: 0}, function() {
                 jQuery(this).remove();
             });
