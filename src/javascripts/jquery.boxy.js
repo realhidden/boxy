@@ -131,7 +131,7 @@ jQuery.extend(Boxy, {
         afterShow:              Boxy.EF,        // callback fired after dialog becomes visible. executes in context of Boxy instance.
         afterHide:              Boxy.EF,        // callback fired after dialog is hidden. executed in context of Boxy instance.
         beforeUnload:           Boxy.EF,        // callback fired after dialog is unloaded. executed in context of Boxy instance.
-        showFade:               false, 
+        showFade:               false,
         hideFade:               false,
         hideShrink:             'vertical'
     },
@@ -254,11 +254,6 @@ jQuery.extend(Boxy, {
         return jQuery('.boxy-modal-blackout').length > 0;
     },
     
-    // allow users to call [boxy object].close();
-    close: function() {
-      this.options.unloadOnHide ? this.hideAndUnload() : this.hide();
-    },
-
     _u: function() {
         for (var i = 0; i < arguments.length; i++)
             if (typeof arguments[i] != 'undefined') return false;
@@ -387,6 +382,14 @@ Boxy.prototype = {
       return box;
     },
 
+    // allow users to call [boxy object].close();
+    // example:
+    //
+    // Boxy.get($('.boxy-content')).close(); //-> closes the boxy element that matches that jQuery call
+    close: function(after) {
+      this.hide(after);
+    },
+
     // Move this dialog to some position, funnily enough
     moveTo: function(x, y) {
         this.moveToX(x).moveToY(y);
@@ -506,7 +509,7 @@ Boxy.prototype = {
             }
         }
 		this.getInner().stop().css({width: '', height: ''});
-        
+
         if (this.options.showFade) {
           this.boxy.stop().css({opacity: 1}).fadeIn(700);
         }
@@ -516,7 +519,7 @@ Boxy.prototype = {
         this.visible = true;
         this.boxy.find('.close:first').focus();
         this._fire('afterShow');
-        
+
         return this;
     },
     
