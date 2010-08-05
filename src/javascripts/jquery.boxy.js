@@ -3,7 +3,6 @@
  *
  * (c) 2008 Jason Frame
  * Licensed under the MIT License (LICENSE)
- * Modified by Michael Tierney <mike@panpainter.com>
  */
  
 /*
