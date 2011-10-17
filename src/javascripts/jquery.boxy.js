@@ -524,7 +524,7 @@ Boxy.prototype = {
           this.boxy.stop().css({opacity: 1}).show();
         }
         this.visible = true;
-        this.boxy.find('.close:first').focus();
+        this.boxy.find('.boxy-close:first').focus();
         this._fire('afterShow');
 
         return this;
@@ -637,7 +637,7 @@ Boxy.prototype = {
             var self = this;
             var tb = jQuery("<div class='title-bar'></div>").html("<h2>" + this.options.title + "</h2>");
             if (this.options.closeable) {
-                tb.append(jQuery("<a href='#' class='close'></a>").html(this.options.closeText));
+                tb.append(jQuery("<a href='#' class='close boxy-close'></a>").html(this.options.closeText));
             }
             if (this.options.draggable) {
                 tb[0].onselectstart = function() { return false; };
@@ -667,7 +667,7 @@ Boxy.prototype = {
         if (this.options.clickToFront) {
             root.click(function() { self.toTop(); });
         }
-        jQuery('.close', root).click(function() {
+        jQuery('.boxy-close', root).click(function() {
             self.hide();
             return false;
         }).mousedown(function(evt) { evt.stopPropagation(); });
