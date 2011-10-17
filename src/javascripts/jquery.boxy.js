@@ -253,7 +253,13 @@ jQuery.extend(Boxy, {
     isModalVisible: function() {
         return jQuery('.boxy-modal-blackout').length > 0;
     },
-    
+
+    // TODO remove this function when possible
+    close: function(target) {
+        target = target || '.boxy-inner';
+        Boxy.get(jQuery(target)).hide();
+    },
+
     _u: function() {
         for (var i = 0; i < arguments.length; i++)
             if (typeof arguments[i] != 'undefined') return false;
