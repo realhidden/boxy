@@ -381,10 +381,11 @@ Boxy.prototype = {
 
     loadData: function(url, callback, options) {
       box = jQuery.get(url.href, function(data) {
-        Boxy.get($j('.boxy-content')).setContent(data).center();
+        var html = data.html || data;
+        Boxy.get($j('.boxy-content')).setContent(html).center();
 
-        if(callback) { callback() }
-      }, ($j.browser.msie) ? 'text' : 'script'); // TODO (mtierney 2010/04/07) Need to verify that browsers are getting the right dataType -- this short-circuits that check for now, suppressing errors in IE, but isn't technically correct.
+        if(callback) { callback(); }
+      });
       return box;
     },
 
