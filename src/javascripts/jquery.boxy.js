@@ -407,10 +407,7 @@ Boxy.prototype = {
     moveToX: function(x) {
         if (typeof x == 'number') {
           if (x >= 0) this.boxy.css({left: x});
-          else {
-            this.boxy.css({left: Boxy.DEFAULT_X});
-            this.boxy.removeClass('fixed');
-          }
+          else this.boxy.css({left: Boxy.DEFAULT_X});
         }
         else this.centerX();
         return this;
@@ -419,7 +416,10 @@ Boxy.prototype = {
     // Move this dialog (y-coord only)
     moveToY: function(y) {
         if (typeof y == 'number') {
-          if (y >= 0) this.boxy.css({top: y});
+          if (y >= 0) {
+            this.boxy.css({top: y});
+            if (!this.boxy.hasClass('fixed') && this.options.fixed) this.boxy.addClass('fixed');
+          }
           else {
             this.boxy.css({top: Boxy.DEFAULT_Y});
             this.boxy.removeClass('fixed');
